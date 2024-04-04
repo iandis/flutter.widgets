@@ -338,6 +338,8 @@ class _PositionedListState extends State<PositionedList> {
                 reveal - viewport.offset.pixels + anchor * viewport.size.height;
             positions.add(ItemPosition(
                 index: key.value,
+                itemOffset: itemOffset,
+                itemSize: box.size,
                 itemLeadingEdge: itemOffset.round() /
                     scrollController.position.viewportDimension,
                 itemTrailingEdge: (itemOffset + box.size.height).round() /
@@ -348,6 +350,11 @@ class _PositionedListState extends State<PositionedList> {
             if (!itemOffset.isFinite) continue;
             positions.add(ItemPosition(
                 index: key.value,
+                itemOffset: (widget.reverse
+                    ? scrollController.position.viewportDimension -
+                        (itemOffset + box.size.width)
+                    : itemOffset),
+                itemSize: box.size,
                 itemLeadingEdge: (widget.reverse
                             ? scrollController.position.viewportDimension -
                                 (itemOffset + box.size.width)

@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 
 import 'item_positions_notifier.dart';
@@ -21,13 +23,23 @@ abstract class ItemPositionsListener {
 /// Position information for an item in the list.
 class ItemPosition {
   /// Create an [ItemPosition].
-  const ItemPosition(
-      {required this.index,
-      required this.itemLeadingEdge,
-      required this.itemTrailingEdge});
+  const ItemPosition({
+    required this.index,
+    required this.itemOffset,
+    required this.itemSize,
+    required this.itemLeadingEdge,
+    required this.itemTrailingEdge,
+  });
 
   /// Index of the item.
   final int index;
+
+  /// The current offset of the item in the viewport.
+  ///
+  /// May be negative if the item is partially visible.
+  final double itemOffset;
+
+  final Size itemSize;
 
   /// Distance in proportion of the viewport's main axis length from the leading
   /// edge of the viewport to the leading edge of the item.
